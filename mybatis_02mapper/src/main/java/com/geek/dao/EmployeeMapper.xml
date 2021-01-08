@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="EmployeeMapper.java">
+<!--
+    namespace： 名称空间 指定为接口的全类名
+    id:标签的唯一标识符
+    resultType：返回值类型
+    #{id}：从传过来的参数中取出id
+-->
+    <select id="getEmpById" resultType="Employee">
+        select id,last_name lastName,email,gender from mybatis_tb1 where id = #{id}
+    </select>
+
+<!--    public void addEmp(Employee employee);-->
+<!--    parameterType : 参数类型  可省略-->
+<!--    <insert id="addEmp" parameterType="com.geek.bean.Employee">-->
+<!--        insert into mybatis_tb1(last_name,email,gender)-->
+<!--        values(#{lastName},#{email},#{gender})-->
+<!--    </insert>-->
+<!--    public void updateEmp(Employee employee);-->
+    <update id="updateEmp" parameterType="Employee">
+        update mybatis_tb1
+            set last_name=#{lastName},email=#{email},gender=#{gender}
+            where id=#{id}
+    </update>
+<!--    public void deleteEmp(Integer id);-->
+<!--    <delete id="deleteEmp">-->
+<!--        delete from mybatis_tb1 where id=#{id}-->
+<!--    </delete>-->
+</mapper>

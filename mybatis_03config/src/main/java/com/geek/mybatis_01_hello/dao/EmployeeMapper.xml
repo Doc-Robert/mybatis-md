@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geek.mybatis_01_hello.dao.EmployeeMapper">
+<!--
+    namespace： 名称空间 指定为接口的全类名
+    id:标签的唯一标识符
+    resultType：返回值类型
+    #{id}：从传过来的参数中取出id
+-->
+<!--    结果集映射 id  type 为实体类名-->
+    <resultMap id="EmpMap" type="Employee">
+<!--        column 数据库中的字段，property实体类中的属性名-->
+<!--        <result column="id" property="id"></result>-->
+<!--        <result column="name" property="name"></result>-->
+        <result column="pwd" property="password"></result>
+    </resultMap>
+    <select id="getEmpById" resultMap="EmpMap">
+        select * from mybatis_tb1 where id=#{id}
+    </select>
+
+<!--    <select id="getEmpById" resultType="com.geek.mybatis_01_hello.domain.Employee">-->
+<!--        select id,last_name lastName,email,gender from mybatis_tb1 where id = #{id}-->
+<!--    </select>-->
+
+    <insert id="addEmp" parameterType="com.geek.mybatis_01_hello.domain.Employee">
+        insert into mybatis_tb1(last_name,email,gender)
+        values(#{lastName},#{email},#{gender})
+    </insert>
+
+    <update id="updateEmp" parameterType="com.geek.mybatis_01_hello.domain.Employee">
+        update mybatis_tb1
+            set last_name=#{lastName},email=#{email},gender=#{gender}
+            where id=#{id}
+    </update>
+    <delete id="deleteEmp" parameterType="com.geek.mybatis_01_hello.domain.Employee">
+        delete FROM mybatis_tb1 WHERE id=#{id};
+    </delete>
+
+<!--    多个值根据指定的命名参数 来填写value-->
+    <select id="getEmpByIdAndLastName" resultType="com.geek.mybatis_01_hello.domain.Employee">
+        select * from mybatis_tb1 where id =#{id} and last_name=#{lastName}
+
+    </select>
+
+<!--        通过hashmap来传输数据-->
+    <select id="getEmpByMap" resultType="com.geek.mybatis_01_hello.domain.Employee">
+        select * from mybatis_tb1 where id =#{id} and last_name=#{lastName}
+    </select>
+
+</mapper>
